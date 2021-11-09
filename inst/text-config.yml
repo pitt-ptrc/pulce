@@ -1,0 +1,10 @@
+default:
+  about: egggolemreg
+  aboutl1: 0.0.0.9000
+  aboutl2: no
+  aboutl3: "saldf"
+  data_catalog_link: https://pitt-my.sharepoint.com/personal/mjb357_pitt_edu/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fmjb357%5Fpitt%5Fedu%2FDocuments%2Fpulce%2Ddata%2Dcatalog%2Epdf&parent=%2Fpersonal%2Fmjb357%5Fpitt%5Fedu%2FDocuments&originalPath=aHR0cHM6Ly9waXR0LW15LnNoYXJlcG9pbnQuY29tLzpiOi9nL3BlcnNvbmFsL21qYjM1N19waXR0X2VkdS9FYkZwcExWdmFTRklqSmV4OUFjNk9ISUJFdVJ1ODF5bkhnNnFhZHp5WkZEZUxBP3J0aW1lPXc5ZUhRMW1LMlVn
+production:
+  app_prod: yes
+dev:
+  golem_wd: !expr here::here()

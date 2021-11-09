@@ -1,0 +1,23 @@
+default:
+  golem_name: egggolemreg
+  golem_version: 0.0.0.9000
+  app_prod: no
+  dataconnection:
+    driver: ODBC Driver 17 for SQL Server
+    server: paccmdb.database.windows.net
+    uid: !expr Sys.getenv("dashboard_uid")
+    pwd: !expr Sys.getenv("dashboard_pwd")
+    port: 1433
+    database: 'paccmdb'
+production:
+  app_prod: yes
+dev:
+  golem_wd: !expr here::here()
+shinyapps:
+  dataconnection:
+    driver: SQLServer
+    server: paccmdb.database.windows.net
+    uid: !expr Sys.getenv("dashboard_uid")
+    pwd: !expr Sys.getenv("dashboard_pwd")
+    port: 1433
+    database: 'paccmdb'

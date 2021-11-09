@@ -1,0 +1,46 @@
+Package: egggolemreg
+Title: PKG_TITLE
+Version: 0.0.0.9000
+Authors@R: person('AUTHOR_FIRST', 'AUTHOR_LAST', email = 'AUTHOR@MAIL.COM', role = c('cre', 'aut'))
+Description: PKG_DESC.
+License: MIT + file LICENSE
+Imports: 
+    attempt (>= 0.3.1),
+    bslib,
+    ComplexUpset,
+    config (>= 0.3.1),
+    DBI (>= 1.1.1),
+    dbplot,
+    dbplyr,
+    dplyr,
+    DT (>= 0.18),
+    ggplot2,
+    glue (>= 1.4.2),
+    golem (>= 0.3.1),
+    gt,
+    gtsummary,
+    htmltools (>= 0.5.2),
+    jsonlite,
+    magrittr (>= 2.0.1),
+    odbc,
+    pkgload,
+    pool,
+    purrr,
+    shiny (>= 1.6.0),
+    shinyjs,
+    shinyvalidate,
+    stringr,
+    thematic,
+    tibble,
+    tidyr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Suggests: 
+    rmarkdown (>= 2.9),
+    knitr (>= 1.33),
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+URL: https://github.com/mjbroerman/egggolemreg
+BugReports: https://github.com/mjbroerman/egggolemreg/issues
