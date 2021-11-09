@@ -52,7 +52,8 @@ mod_about_server <- function(id){
         )
       )
       # ggtitle('Study Databases, by absolute and overlap size.')
-    })
+    }) %>% 
+      bindCache(pulce_id_table)
     # output$sample_box <- shinydashboard::renderInfoBox({
     #   shinydashboard::infoBox(
     #     "Samples", studies$name[1],

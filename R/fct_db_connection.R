@@ -220,18 +220,20 @@ ref_care_ids <- get_tbl_ref(schema_cols = schema_cols,
 # CV_ID prep --------------------------------------------------------------
 
 
-prep_ids <- function(con, schema, table, ...){
-  dplyr::tbl(con, dbplyr::in_schema(schema = schema, table = table)) %>% 
-    dplyr::select(CV_ID_PULCE) %>% 
-    dplyr::mutate(!!as.name(schema) := TRUE) %>% 
-    dplyr::collect()
-}
+# prep_ids <- function(con, schema, table, ...){
+#   dplyr::tbl(con, dbplyr::in_schema(schema = schema, table = table)) %>% 
+#     dplyr::select(CV_ID_PULCE) %>% 
+#     dplyr::mutate(!!as.name(schema) := TRUE) %>% 
+#     dplyr::collect()
+# }
+# 
+# pulce_id_table_list <- purrr::pmap(ref_demo_ids, ~ prep_ids(pool, .x, .y)) 
+# 
+# pulce_id_table <- pulce_id_table_list %>%
+#   purrr::reduce(dplyr::full_join, by = "CV_ID_PULCE") %>% 
+#   replace(is.na(.), values = 0)
 
-pulce_id_table_list <- purrr::pmap(ref_demo_ids, ~ prep_ids(pool, .x, .y)) 
-
-pulce_id_table <- pulce_id_table_list %>%
-  purrr::reduce(dplyr::full_join, by = "CV_ID_PULCE") %>% 
-  replace(is.na(.), values = 0)
+pulce_id_table <- tbl(pool, "dash_pulce_id_table")
 
 # close pool --------------------------------------------------------------
 

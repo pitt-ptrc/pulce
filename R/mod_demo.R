@@ -70,46 +70,53 @@ mod_demo_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
+    cat_data <- tbl(pool, "h_demo") %>% 
+      filter(name %in% c("h_race", "h_sex"))
+    
     output$cat_all <- renderPlot({
-      tbl(pool, "h_demo") %>% 
+      cat_data %>%
         distinct(h_id, name, value) %>% 
-        filter(name %in% c("h_race", "h_sex")) %>%
         ggplot(aes(value)) +
         geom_bar() +
         facet_grid(cols = vars(name),
                    scales = "free_x") +
         labs(caption = "Note: 'NA' includes values that could not be harmonized.")
-    })
+    }) %>% 
+      bindCache(cat_data)
     
     output$cat_by_study <- renderPlot({
-      tbl(pool, "h_demo") %>%
+      cat_data %>% 
         distinct(h_data_source, h_id, name, value) %>%
-        filter(name %in% c("h_race", "h_sex")) %>%
         ggplot(aes(value)) +
         geom_bar() +
         facet_grid(rows = vars(h_data_source), 
                    cols = vars(name),
                    scales = "free_x") +
         labs(caption = "Note: 'NA' includes values that could not be harmonized.")
-    })
+    }) %>% 
+      bindCache(cat_data)
+    
+    age_data <- tbl(pool, "h_demo")
     
     output$age_all <- renderPlot({
-      tbl(pool, "h_demo") %>% 
+      age_data %>% 
         distinct(h_id, age_consent, first_consent) %>% 
         filter(first_consent == "TRUE") %>% 
         ggplot(aes(age_consent)) +
         geom_histogram(binwidth = 1) +
         labs(caption = "Note: age at first consent across studies")
-    })
+    }) %>% 
+      bindCache(age_data)
     
     output$age_by_study <- renderPlot({
-      tbl(pool, "h_demo") %>% 
+      age_data %>% 
         distinct(h_data_source, h_id, age_consent) %>% 
         ggplot(aes(age_consent)) +
         geom_histogram(binwidth = 1) +
         facet_grid(rows = vars(h_data_source), 
                    scales = "free_x")
-    })
+    }) %>% 
+      bindCache(age_data)
     
 
 # gt tables ---------------------------------------------------------------
@@ -128,10 +135,13 @@ mod_demo_server <- function(id){
     # # the largest islands in the world
     # gt_tbl <- gt(islands_tbl)
     
+    table_data <- 
+      tbl(pool, "h_demo") %>% 
+      pivot_wider(names_from = name, values_from = value)
+    
     output$demo_table_all <-
       render_gt(
-        tbl(pool, "h_demo") %>% 
-          pivot_wider(names_from = name, values_from = value) %>% 
+        table_data %>% 
           filter(first_consent == "TRUE") %>%
           # We have to `distinct` some consented at the same time to multiple studies
           # group_by(h_id) %>% 
@@ -141,12 +151,12 @@ mod_demo_server <- function(id){
           tbl_summary() %>% 
           bold_labels() %>% 
           as_gt()
-      )
+      ) %>% 
+      bindCache(table_data)
     
     output$demo_table_by_study <-
       render_gt(
-        tbl(pool, "h_demo") %>% 
-          pivot_wider(names_from = name, values_from = value) %>% 
+        table_data %>% 
           # filter(first_consent == "TRUE") %>%
           distinct(h_data_source, age_consent, h_race, h_sex, h_hisp) %>% 
           collect() %>% 
@@ -155,7 +165,8 @@ mod_demo_server <- function(id){
           ) %>% 
           bold_labels() %>% 
           as_gt()
-      )
+      ) %>% 
+      bindCache(table_data)
  
   })
 }
