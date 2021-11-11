@@ -31,20 +31,6 @@ mod_tests_ui <- function(id){
       plotOutput(ns("plot"))
     )
   )
-  # fluidPage(
-  #   inputPanel(
-  #     selectInput(ns("schema_in"), "Study", choices = unique(ref_ids$schema)),
-  #     selectInput(ns("table_in"), "Table", choices = NULL),
-  #     # selectInput(ns("col_name_in"), "Variable", choice = NULL),
-  #     actionButton(ns("getdata"), "Get Data")
-  #   ),
-  #   verbatimTextOutput(ns("query")),
-  #   inputPanel(
-  #     selectInput(ns("pulce_id_in"), "Pulce ID", choice = NULL),
-  #     radioButtons(ns("pct_in"), "Percent", choices = c("TRUE", "FALSE"))
-  #   ),
-  #   plotOutput(ns("plot"))
-  # )
 }
 
 #' tests Server Functions
@@ -101,6 +87,20 @@ mod_tests_server <- function(id){
       ) %>%  show_query()
     })
     
+    # This fails because the fetched data doesn't contain all of the relevant stuff
+    # See scratch version for working cache version that errors at init.
+    
+    # fetched_data <- reactive({
+    #   tbl(
+    #     pool,
+    #     in_schema(
+    #       schema = input$schema_in,
+    #       table = input$table_in
+    #     )
+    #   )
+    # }) %>%
+    #   bindEvent(input$getdata)
+    
     output$plot <- renderPlot({
       
       plot_ann <- function(){
@@ -111,8 +111,6 @@ mod_tests_server <- function(id){
                    str_tbl = "cv_care",
                    str_sch = selection()$schema,
                    id_pulce = input$pulce_id_in
-                   # str_sch = "m_breathelt",
-                   # id_pulce = "/hkLLUJMyU6z"
                    ) {
             
             treat_ann_ref <- get_tbl_ref(schema_cols,

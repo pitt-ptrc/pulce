@@ -73,39 +73,30 @@ mod_care_server <- function(id){
       table()
     })
     
-    # pulce_ids <- reactive({
-    #   tbl(pool,
-    #       in_schema(schema = selection()$schema,
-    #                 table = selection()$table)) %>%
-    #     group_by(CV_ID_PULCE, CV_CAT_TEST_TYPE) %>%
-    #     filter(n() > 15) %>%
-    #     ungroup() %>%
-    #     distinct(CV_ID_PULCE) %>%
-    #     pull()
-    # })
-    # observeEvent(pulce_ids(), {
-    #   choices <- pulce_ids()
-    #   updateSelectInput(inputId = "pulce_id_in", choices = choices)
-    # })
-    
     output$query <- renderPrint({
       tbl(
         pool,
         in_schema(
-          schema = unique(selection()$schema),
-          table = unique(selection()$table)
+          schema = input$schema_in,
+          table = input$table_in
         )
-      ) %>%  show_query()
+      ) %>%  
+        show_query()
     })
     
-    output$plot_dxtx <- renderPlot({
-      p <- tbl(
+    fetched_data <- reactive({
+      tbl(
         pool,
         in_schema(
-          schema = unique(selection()$schema),
-          table = unique(selection()$table)
+          schema = input$schema_in,
+          table = input$table_in
         )
-      ) %>% 
+      )
+    }) %>%
+      bindEvent(input$getdata)
+    
+    output$plot_dxtx <- renderPlot({
+      p <- fetched_data() %>% 
         count(CV_CAT_TREAT_TYPE, CV_CAT_DIAG_TYPE) %>% 
         ggplot(aes(CV_CAT_TREAT_TYPE, CV_CAT_DIAG_TYPE, fill = n)) +
         geom_tile() +
@@ -113,7 +104,8 @@ mod_care_server <- function(id){
         theme(axis.text.x = element_text(angle = 340, hjust = 0.2))
       
       plot_with_labels(p, display_labels)
-    })
+    }) %>% 
+      bindCache(fetched_data())
     
     output$plot_age_at_treat <- renderPlot({
       tbl(
@@ -127,41 +119,6 @@ mod_care_server <- function(id){
         geom_histogram(binwidth = 1) +
         coord_flip()
     })
-    
-    # output$print <- renderPrint({
-    #   tbl(
-    #     pool,
-    #     in_schema(
-    #       schema = selection()$schema,
-    #       table = selection()$table
-    #     )
-    #   ) %>% 
-    #     head() %>% 
-    #     collect()
-    # })
-    # 
-    # output$plot <- renderPlot({
-    #   tbl(
-    #     pool,
-    #     in_schema(
-    #       schema = selection()$schema,
-    #       table = selection()$table
-    #     )
-    #   ) %>% 
-    #     filter(pct == !!input$pct_in) %>% 
-    #     filter(CV_ID_PULCE == !!input$pulce_id_in) %>% 
-    #     ggplot(
-    #       aes(
-    #         # x = !!sym(selection()$col_name), 
-    #         x = CV_DT_TEST,
-    #         y = CV_VAL_TEST_VALUE,
-    #         color = CV_CAT_TEST_TYPE,
-    #         linetype = CV_CAT_TEST_STAGE
-    #       )
-    #     ) +
-    #     geom_line() +
-    #     theme(legend.position="bottom")
-    # })
   })
 }
 

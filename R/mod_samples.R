@@ -66,39 +66,26 @@ mod_samples_server <- function(id){
       table()
     })
     
-    # pulce_ids <- reactive({
-    #   tbl(pool,
-    #       in_schema(schema = selection()$schema,
-    #                 table = selection()$table)) %>%
-    #     group_by(CV_ID_PULCE, CV_CAT_TEST_TYPE) %>%
-    #     filter(n() > 15) %>%
-    #     ungroup() %>%
-    #     distinct(CV_ID_PULCE) %>%
-    #     pull()
-    # })
-    # observeEvent(pulce_ids(), {
-    #   choices <- pulce_ids()
-    #   updateSelectInput(inputId = "pulce_id_in", choices = choices)
-    # })
     
-    output$query <- renderPrint({
+    fetched_data <- reactive({
       tbl(
         pool,
         in_schema(
-          schema = selection()$schema,
-          table = selection()$table
+          schema = input$schema_in,
+          table = input$table_in
         )
-      ) %>%  show_query()
-    })
+      )
+    }) %>%
+      bindEvent(input$getdata)
+    
+    output$query <- renderPrint({
+      fetched_data() %>%
+        show_query()
+    }) %>% 
+      bindCache(fetched_data())
     
     output$plot_overall <- renderPlot({
-      p <- tbl(
-        pool,
-        in_schema(
-          schema = selection()$schema,
-          table = selection()$table
-        )
-      ) %>% 
+      p <- fetched_data() %>% 
         # dbplot::dbplot_bar(!!sym(selection()$col_name)) +
         ggplot(aes(!!sym(selection()$col_name))) +
         geom_bar() +
@@ -106,24 +93,20 @@ mod_samples_server <- function(id){
         theme(legend.position="bottom")
       
       plot_with_labels(p, display_labels)
-    })
+    }) %>% 
+      bindCache(fetched_data())
     
     
     output$plot_perpatient <- renderPlot({
-      p <- tbl(
-        pool,
-        in_schema(
-          schema = selection()$schema,
-          table = selection()$table
-        )
-      ) %>% 
+      p <- fetched_data() %>% 
         count(CV_ID_PULCE, !!sym(selection()$col_name)) %>% 
         ggplot(aes(!!sym(selection()$col_name))) +
         geom_bar() +
         coord_flip()
       
       plot_with_labels(p, display_labels)
-    })
+    }) %>% 
+      bindCache(fetched_data())
   })
 }
     
