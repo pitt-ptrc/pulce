@@ -1,8 +1,8 @@
-Package: egggolemreg
-Title: PKG_TITLE
+Package: PULCE
+Title: Pulmonary Centralized Database
 Version: 0.0.0.9000
-Authors@R: person('AUTHOR_FIRST', 'AUTHOR_LAST', email = 'AUTHOR@MAIL.COM', role = c('cre', 'aut'))
-Description: PKG_DESC.
+Authors@R: person('Matthew', 'Broerman', email = 'mjb357@pitt.edu', role = c('cre', 'aut'))
+Description: Portal to viewing and accessing de-identified data from enrolled studies at the PACCM Division at Pitt.
 License: MIT + file LICENSE
 Imports: 
     attempt (>= 0.3.1),

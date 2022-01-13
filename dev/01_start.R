@@ -19,12 +19,12 @@
 ## to change the name in the app_sys() function in app_config.R /!\
 ## 
 golem::fill_desc(
-  pkg_name = "egggolemreg", # The Name of the package containing the App 
-  pkg_title = "PKG_TITLE", # The Title of the package containing the App 
-  pkg_description = "PKG_DESC.", # The Description of the package containing the App 
-  author_first_name = "AUTHOR_FIRST", # Your First Name
-  author_last_name = "AUTHOR_LAST", # Your Last Name
-  author_email = "AUTHOR@MAIL.COM", # Your Email
+  pkg_name = "PULCE", # The Name of the package containing the App 
+  pkg_title = "Pulmonary Centralized Database", # The Title of the package containing the App 
+  pkg_description = "Portal to viewing and accessing de-identified data from enrolled studies at the PACCM Division at Pitt.", # The Description of the package containing the App 
+  author_first_name = "Matthew", # Your First Name
+  author_last_name = "Broerman", # Your Last Name
+  author_email = "mjb357@pitt.edu", # Your Email
   repo_url = NULL # The URL of the GitHub Repo (optional) 
 )     
 
