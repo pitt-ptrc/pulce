@@ -1,0 +1,13 @@
+name: pulce
+title: pulce
+username:
+account: pitt-ptrc
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5483230
+bundleId: 5493317
+url: https://pitt-ptrc.shinyapps.io/pulce/
+when: 1642776318.23531
+lastSyncTime: 1642776318.23532
+asMultiple: FALSE
+asStatic: FALSE

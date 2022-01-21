@@ -5,7 +5,7 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
-  setup_theme()
+  # setup_theme()
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),

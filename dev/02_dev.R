@@ -45,6 +45,9 @@ usethis::use_package("tidyr")
 usethis::use_package("gt")
 usethis::use_package("gtsummary")
 
+# when deploying, these needed to be installed on a fresh install
+# usethis::use_package("tinytex")
+# usethis::use_package("rmarkdown")
 # to add?
 
 
