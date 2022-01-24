@@ -14,12 +14,12 @@
 setup_theme <- function(){
   ggplot2::theme_set(ggplot2::theme_minimal(base_size = 18))
   # thematic::thematic_shiny(font = thematic::font_spec("Pacifico", scale = 2))
-  thematic::thematic_shiny(
-    bg = "auto", 
-    fg = "#003594", 
-    accent = "auto", 
-    font = "auto"
-  )
+  # thematic::thematic_shiny(
+  #   bg = "auto", 
+  #   fg = "#003594", 
+  #   accent = "auto", 
+  #   font = "auto"
+  # )
 }
 
 get_pitt_theme <- function(){

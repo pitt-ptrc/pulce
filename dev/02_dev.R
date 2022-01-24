@@ -60,6 +60,7 @@ golem::add_module( name = "tests" )
 golem::add_module( name = "samples" )
 golem::add_module( name = "demo" )
 golem::add_module( name = "care")
+golem::add_module( name = "samp_cohort")
 
 
 ## Add helper functions ----

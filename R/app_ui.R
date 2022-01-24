@@ -5,7 +5,7 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
-  # setup_theme()
+  setup_theme()
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
@@ -23,11 +23,11 @@ app_ui <- function(request) {
           widths = c(2, 10),
           "Harmonized",
           tabPanel("Demographics", mod_demo_ui("demo_ui_1")),
+          tabPanel("Sample Cohort", mod_samp_cohort_ui("samp_cohort_ui_1")),
           "Per Study",
           tabPanel("Care", mod_care_ui("care_ui_1")),
           tabPanel("Repeated Tests", mod_tests_ui("tests_ui_1")),
-          tabPanel("Samples", mod_samples_ui("samples_ui_1")),
-          tabPanel("Models")
+          tabPanel("Samples", mod_samples_ui("samples_ui_1"))
         )
       )
     )
@@ -52,7 +52,7 @@ golem_add_external_resources <- function(){
     favicon(),
     bundle_resources(
       path = app_sys('app/www'),
-      app_title = 'egggolemreg'
+      app_title = 'PULCE'
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 

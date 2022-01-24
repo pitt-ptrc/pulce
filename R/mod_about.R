@@ -47,8 +47,8 @@ mod_about_server <- function(id){
         colnames(pulce_id_table)[-1],
         name = "Subject Overlap",
         themes = upset_default_themes(
-          text = element_text(size = 22),
-          axis.text = element_text(size = 22)
+          text = element_text(size = 20),
+          axis.text = element_text(size = 20)
         )
       )
       # ggtitle('Study Databases, by absolute and overlap size.')

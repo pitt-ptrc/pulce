@@ -114,7 +114,7 @@ mod_enroll_ui <- function(id){
               label = "One sentence summary",
               rows = 2,
               width = '100%',
-              value = "bug: String or binary data would be truncated in table "
+              value = "a short description"
             ),
             textInput(
               ns("url"),
@@ -141,7 +141,7 @@ mod_enroll_ui <- function(id){
                    ),
               ),
               rows = 5,
-              value = "bug: String or binary data would be truncated in table "
+              value = "a longer description"
             ),
             fileInput(
               ns("upload_data"), 

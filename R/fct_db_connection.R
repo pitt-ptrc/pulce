@@ -233,7 +233,7 @@ ref_care_ids <- get_tbl_ref(schema_cols = schema_cols,
 #   purrr::reduce(dplyr::full_join, by = "CV_ID_PULCE") %>% 
 #   replace(is.na(.), values = 0)
 
-pulce_id_table <- tbl(pool, "dash_pulce_id_table")
+pulce_id_table <- tbl(pool, "pulce_id_study")
 
 # close pool --------------------------------------------------------------
 
